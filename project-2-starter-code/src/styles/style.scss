@@ -8,3 +8,16 @@
 .homepage-text {
   color: white;
 }
+.hourly {
+  overflow: hidden scroll;
+  height: 10px;
+  min-height: 40%;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+.tile.is-child {
+  margin-bottom: 40px !important;
+}
