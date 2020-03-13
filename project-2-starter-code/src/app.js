@@ -10,7 +10,6 @@ import SingleCity from './components/SingleCity'
 
 const App = () => (
   <BrowserRouter>
-    {/* <NavBar /> */}
     <Switch>
       <Route exact path="/cities/:city" component={SingleCity} />
       <Route exact path="/cities" component={Cities} />

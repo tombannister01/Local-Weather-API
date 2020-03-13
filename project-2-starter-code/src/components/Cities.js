@@ -1,15 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 
 class Cities extends React.Component {
 
   constructor() {
     super()
     this.state = {
-
       cityInfo: {
-        // 'Paris', 'Berlin', 'Milan', 'Melbourne', 'Beijing', 'Tokyo', 'Delhi', 'Mexico City', 'Buenos Aires'
         cityArray: [
           { name: 'London', latlong: '51.507351,-0.127758', image: 'https://cdn.londonandpartners.com/assets/73295-640x360-london-skyline-ns.jpg' },
           { name: 'San Francisco', latlong: '37.774929,-122.419418', image: 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2019/09/16/15/san-francisco.jpg?w968h681' },
@@ -23,7 +20,6 @@ class Cities extends React.Component {
           { name: 'Dubai', latlong: '25.2048,55.2708', image: 'https://images.musement.com/cover/0002/45/dubai-skyline-at-dusk-jpg_header-144981.jpeg' },
           { name: 'Mexico City', latlong: '19.4326,99.1332', image: 'https://nomadlist.com/assets/img/cities/mexico-city-mexico-500px.jpg' },
           { name: 'Buenos Aires', latlong: '34.6037,58.3816', image: 'https://lp-cms-production.imgix.net/2019-06/4c410251e0146b2edd2b8b1d64a02047-buenos-aires.jpg?fit=crop&q=40&sharp=10&vib=20&auto=format&ixlib=react-8.6.4' }
-
         ]
       }
     }
@@ -35,12 +31,9 @@ class Cities extends React.Component {
       <section className="hero is-medium">
         <div className="hero-body">
           <div className="container">
-            <h1 className="title homepage-text">
-              Hero title
+            <h1 className="title homepage-text has-text-centered">
+              Choose a city for more information
             </h1>
-            <h2 className="subtitle homepage-text">
-              Hero subtitle
-            </h2>
           </div>
         </div>
       </section>
@@ -50,18 +43,13 @@ class Cities extends React.Component {
             {this.state.cityInfo.cityArray.map((city, key) => {
               return <div className="column is-one-third" key={key}>
                 <Link
-                  // to={`cities/${city.name}`}
-                  // {...this.props.city}
                   to={{
                     pathname: `cities/${city.name}`,
                     state: { city } 
                   }}
-
                 >
                   <div className="card"
-
                   >
-
                     <div className="card-image ">
                       <figure className="image is-4by3">
                         <img src={city.image} />
@@ -74,14 +62,10 @@ class Cities extends React.Component {
                 </Link>
               </div>
             })}
-
-
-
           </div>
         </div>
       </section>
     </>
-
   }
 }
 

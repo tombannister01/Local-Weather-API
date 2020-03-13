@@ -1,10 +1,10 @@
 import React from 'react'
 import axios from 'axios'
 import moment from 'moment-timezone'
+import { Link } from 'react-router-dom'
 
 
 class SingleCity extends React.Component {
-
 
   constructor() {
     super()
@@ -14,12 +14,14 @@ class SingleCity extends React.Component {
       currentDate: '',
 
       forecast: {
-        currently: {}
+        currently: {},
+        daily: {
+          data: []
+        }
       }
     }
   }
 
-  // moment.tz.format('MMMM Do YYYY, h:mm:ss a', `"${this.state.forecast.timezone}"`),
 
   componentDidMount() {
     const data = this.props.location.state
@@ -27,155 +29,110 @@ class SingleCity extends React.Component {
       .then(res => {
         this.setState({ forecast: res.data })
         setInterval(() => {
-          // const date = this.state.forecast.c
           this.setState({ currentDate: moment().tz(`${this.state.forecast.timezone}`).format('MMMM Do YYYY, h:mm:ss a') })
-          // this.setState({ currentDate: moment.tz(this.state.forecast.currently.time, `${this.state.forecast.timezone}`).format('MMMM Do YYYY, h:mm:ss a') })
 
         }, 1000)
       })
       .catch(err => console.error(err))
 
   }
-
-  // componentDidUpdate() {
-  //   this.setState({
-  //     currentDate: setInterval(() => {
-  //       moment().format('MMMM Do YYYY, h:mm:ss a')
-  //     }, 1000)
-  //   })
-  // }
-
-
-
-
-
   componentWillUnmount() {
     clearInterval(this.state.intervalID)
   }
 
   render() {
-    // console.log(this.state.currentDate)
     const forecast = this.state.forecast
-    // console.log(forecast)
     let counter = 0
-    // this.setState({ currentDate: setInterval(() => {
-    //   moment().format('MMMM Do YYYY, h:mm:ss a')
-    // }, 1000) })
+    let counter2 = 0
 
-    // const  { summary, icon, temperature, apparentTemperature, precipProbability } = forecast.hourly.data
-    if (!forecast) return null
-    // console.log('current', forecast.currently)
-    // console.log('daily', forecast.daily)
-    // console.log('hourly', forecast.hourly)
-    // console.log('current', forecast.minutely)
-    // console.log( setInterval(() => {
-    //   moment().format('MMMM Do YYYY, h:mm:ss a')
-    // }, 1000))
-
-    document.querySelector('.container')
     return <>
-      <>
-        {console.log(this.props.location.state.city.image)}
-      </>      <section className="hero is-medium">
+      <section className="hero is-medium flex-parent">
         <div className="hero-body single-city-background" style={{ backgroundImage: `url(${this.props.location.state.city.image})` }}>
           <div className="container image-container"  >
+            <div className="hero-single-title">
+              <h1 className="title single-hero-text">
+                {this.props.location.state.city.name}
+              </h1>
+              <h2 className="subtitle single-hero-text">
+                <span>{this.state.currentDate}</span>
+              </h2>
+            </div>
+          </div>
+        </div>
+        <div className="fade"></div>
+      </section>
+      <section className="city">
+        <button className="back-to-cities"><p><Link to={'/cities'}>
+          {'Return to Cities'}
+        </Link></p></button>
+        <div className="tile is-ancestor">
+          <div className="tile is-vertical is-8">
+            <div className="tile">
+              <div className="tile is-parent is-vertical">
+                {forecast.currently && <article className="tile is-child box parent">
+                  <div className="summary-text">
+                    <h3>Current Weather:</h3>
+                    <h4>{forecast.currently.summary}</h4>
+                    <p className="summary-box">Temperature: {Math.round(((forecast.currently.temperature) - 32) * (5 / 9))}°C</p>
+                    <p className="summary-box">Feels like {Math.round(((forecast.currently.apparentTemperature) - 32) * (5 / 9))}°C</p>
+                    <p className="summary-box">Chance of rain: {forecast.currently.precipProbability}%</p>
+                  </div>
+                  <img src={`https://darksky.net/images/weather-icons/${forecast.currently.icon}.png`} alt={forecast.currently.icon} className="icon icon-large" />
+                </article>}
 
+                {forecast.minutely && <article className="tile is-child box parent">
+                  <div className="summary-text">
+                    <h3>In the next hour:</h3>
+                    <h4>{forecast.minutely.summary}</h4>
+                  </div>
+                  <img src={`https://darksky.net/images/weather-icons/${forecast.minutely.icon}.png`} alt={forecast.minutely.icon} className="icon icon-large" />
+                </article>}
 
+                {forecast.hourly && <article className="tile is-child box parent">
+                  <div className="summary-text">
+                    <h3>Rest of the day:</h3>
+                    <h4>{forecast.hourly.summary}</h4>
+                  </div>
+                  <img src={`https://darksky.net/images/weather-icons/${forecast.hourly.icon}.png`} alt={forecast.hourly.icon} className="icon icon-large" />
 
-            {/* //   ...container.style.background-image = {this.props.location.state.city.image}
-          // }> */}
-
-
-            <h1 className="title homepage-text">
-              {this.props.location.state.city.name}
-            </h1>
-            <h2 className="subtitle homepage-text">
-              Hero subtitle
-            </h2>
+                </article>}
+              </div>
+              <div className="tile is-parent vertical">
+                {forecast.hourly && <article className="tile is-child box hourly">
+                  <h3>The next 48 hours:</h3>
+                  {forecast.hourly.data.map((hourly, key) => {
+                    return <div key={key} className="hourly-parent reset-button btn btn-white btn-animation-1">
+                      <div className="hourly-info">
+                        <p className="hourly-forecast">{moment().tz(`${this.state.forecast.timezone}`).add(counter += 1, 'hour').calendar()}</p>
+                        <p> {hourly.summary}</p>
+                        <p> Temperature: {Math.round(((hourly.temperature) - 32) * (5 / 9))}°C but feels like {Math.round(((hourly.temperature) - 32) * (5 / 9))}°C</p>
+                      </div>
+                      <img src={`https://darksky.net/images/weather-icons/${hourly.icon}.png`} alt={hourly.icon} className="icon" />
+                    </div>
+                  })}
+                </article>}
+              </div>
+            </div>
+          </div>
+          <div className="tile is-parent">
+            {forecast.daily && <article className="tile is-child box daily">
+              <h3>The next 7 days:</h3>
+              {forecast.daily.data.map((daily, key) => {
+                return <div key={key} className="hourly-parent reset-button btn btn-white btn-animation-1">
+                  <div className="hourly-info">
+                    <p className="hourly-forecast">{moment().tz(`${this.state.forecast.timezone}`).add(counter2 += 1, 'day').calendar()}</p>
+                    <p>{daily.summary}</p>
+                    <p> Highest temperature: {Math.round(((daily.temperatureHigh) - 32) * (5 / 9))}°C, but feels like {Math.round(((daily.apparentTemperatureHigh) - 32) * (5 / 9))}°C</p>
+                  </div>
+                  <img src={`https://darksky.net/images/weather-icons/${daily.icon}.png`} alt={daily.icon} className="icon" />
+                </div>
+              })}
+            </article>}
           </div>
         </div>
       </section>
-
-      <div className="tile is-ancestor">
-        <div className="tile is-vertical is-8">
-          <div className="tile">
-            <div className="tile is-parent is-vertical">
-              <article className="tile is-child box">
-                {this.props.location.state.city.name}
-                {/* <img src={this.props.location.state.city.image} /> */}
-              </article>
-              <article className="tile is-child box">
-                {/* {forecast.timezone} */}
-                {/* { setInterval(() => { */}
-                {this.state.currentDate}
-                {/* {`${this.state.currentDate}.tz('${this.state.forecast.timezone}').format('MMMM Do YYYY, h:mm:ss a')`} */}
-                {/* {this.setState.({ currentDate })} */}
-                {/* }, 1000)} */}
-              </article>
-              {forecast.currently && <article className="tile is-child box">
-                <h3>Current Weather</h3>
-                <h4>{forecast.currently.summary}</h4>
-                {/* <img src={`https://img.icons8.com/ios/50/000000/${forecast.currently.icon}.png`} alt={forecast.currently.icon} /> */}
-                <img src={`https://darksky.net/images/weather-icons/${forecast.currently.icon}.png`} alt={forecast.currently.icon} className="icon"/>
-
-                <p>Temperature: {Math.round(forecast.currently.temperature)}°C</p>
-                <p>Feels like {Math.round(forecast.currently.apparentTemperature)}°C</p>
-                <p>Chance of rain: {forecast.currently.precipProbability}%</p>
-              </article>}
-
-              {forecast.minutely && <article className="tile is-child box">
-                <h3>In the next hour</h3>
-                <h4>{forecast.minutely.summary}</h4>
-                {/* <img src={`https://img.icons8.com/ios/50/000000/${forecast.minutely.icon}.png`} alt={forecast.minutely.icon} /> */}
-                <img src={`https://darksky.net/images/weather-icons/${forecast.minutely.icon}.png`} alt={forecast.minutely.icon} className="icon"/>
-
-              </article>}
-
-              {forecast.hourly && <article className="tile is-child box">
-                <h3>Rest of the day</h3>
-                <h4>{forecast.hourly.summary}</h4>
-                {/* <img src={`https://img.icons8.com/ios/50/000000/${forecast.hourly.icon}.png`} alt={forecast.hourly.icon} /> */}
-                <img src={`https://darksky.net/images/weather-icons/${forecast.hourly.icon}.png`} alt={forecast.hourly.icon} className="icon"/>
-
-              </article>}
-            </div>
-            <div className="tile is-parent vertical">
-              {forecast.daily && <article className="tile is-child box hourly">
-                The next 48 hours:
-                {forecast.daily.summary}
-                {forecast.hourly.data.map((hourly, key) => {
-                  return <p key={key} className="hourly-forecast">{moment().tz(`${this.state.forecast.timezone}`).add(counter += 1, 'hour').calendar()} - {hourly.summary} - {Math.round(hourly.temperature)}°C - <img src={`https://darksky.net/images/weather-icons/${hourly.icon}.png`} alt={hourly.icon} className="icon"/>
-
-                  </p>
-                })}
-              </article>}
-
-              {forecast.hourly && <article className="tile is-child box hourly">
-                Rest of the day
-                {forecast.hourly.summary}
-              </article>}
-
-            </div>
-          </div>
-          {/* <div className="tile is-parent">
-          <article className="tile is-child box">
-
-          </article>
-        </div> */}
-        </div>
-        <div className="tile is-parent">
-          <article className="tile is-child box">
-            Hello news
-          </article>
-        </div>
-      </div>
     </>
-
   }
-
-
-
-
 }
 
 

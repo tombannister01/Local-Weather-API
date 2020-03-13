@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Baloo+Thambi+2');
+
+* {
+  font-family: 'Baloo Thambi 2', cursive;
+}
 .hero-body {
   background-image: url('https://emilylouiseheardart.files.wordpress.com/2014/06/sky-sunset-background-156058.jpg');
   background-size: cover;
@@ -8,10 +13,33 @@
 .homepage-text {
   color: white;
 }
+
+h1.homepage-text {
+  font-size: 40px;
+}
+
+.button {
+  background-color: gainsboro;
+  opacity: 80%;
+  font-weight: bold;
+}
+
+.back-to-cities {
+  height: 40px;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  box-shadow: 0 8px 7px -7px black;
+}
+
 .hourly {
   overflow: hidden scroll;
   height: 10px;
-  min-height: 40%;
+  min-height: 40vh;
 }
 .vertical {
   display: flex;
@@ -21,11 +49,154 @@
 .tile.is-child {
   margin-bottom: 40px !important;
 }
-.hourly-forecast {
+.hourly-parent {
+  display: flex;
+  flex-flow: row nowrap;
   border: 1px solid grey;
-  margin-top: 5px;
+  margin-top: 10px;
   border-radius: 4px;
+  padding: 10px;
+  justify-content: space-between;
+  box-shadow: 0 8px 7px -7px black;
+
+
 }
 .single-city-background {
   background-position: center;
+  opacity: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: row;
+
+}
+
+.hero-single-title {
+  background-color: rgba(255, 255, 255, 0.7);
+  width: 50%;
+  padding: 20px;
+}
+
+.single-hero-text {
+  color: black;
+  margin: 10px;
+}
+
+h3 {
+  font-weight: bold;
+  font-size: 28px;
+}
+
+h4 {
+  font-size: 26px;
+}
+
+.summary-box {
+font-size: 24px;
+}
+
+h1.single-hero-text {
+  font-size: 46px;
+  font-weight: bold;
+}
+
+h2.single-hero-text {
+  font-size: 38px !important;
+}
+
+.daily {
+  overflow: hidden scroll;
+}
+
+.hourly-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.icon {
+  height: 40px;
+  width: 40px;
+}
+
+.icon-large {
+  height: 60px;
+  width: 60px;
+}
+
+.hourly-forecast {
+  font-weight: bold;
+}
+
+p {
+  font-size: 18px;
+}
+
+.btn-white{
+  background: white;
+  color: black;
+}
+.btn:hover{
+   box-shadow:0px 10px 10px rgba(0,0,0,0.2);
+   transform : translateY(-3px);
+}
+.btn:active{
+  box-shadow:0px 5px 10px rgba(0,0,0,0.2);
+  transform:translateY(-1px);
+}
+.btn-bottom-animation-1{
+  animation: comeFromBottom 1s ease-out .8s;
+}
+.btn::after{
+  content:"";
+  text-decoration: none;
+  text-transform:uppercase;
+  position:absolute;
+  width:100%;
+  height:100%;
+  top:0;
+  left:0;
+  border-radius:100px;
+  display:inline-block;
+  z-index:-1;
+  transition: all .5s;
+}
+.btn-white::after {
+    background: white;
+}
+.btn-animation-1:hover::after {
+    transform: scaleX(1.4) scaleY(1.6);
+    opacity: 0;
+}
+@keyframes comeFromBottom{
+  0%{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  100%{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.parent {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
+div.fade {
+  height: 160px;
+  width: 100%;
+  position: absolute;
+  align-self: flex-end;
+  background-image: linear-gradient(180deg, transparent, white);
+}
+
+.flex-parent {
+  display: flex;
+  flex-direction: row;
+}
+
+section.city {
+  margin: 0px 35px;
 }

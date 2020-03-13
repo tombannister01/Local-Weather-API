@@ -9,21 +9,16 @@ const Home = () => (
           Weather API
         </h1>
         <h4 className="subtitle has-text-centered homepage-text">
-          Powered by DarkSky
+          Powered by DarkSky © 
         </h4>
         <button className="button is-normal">
           <Link to={'/cities'}>
-            {'Cities'}
+            {'Select Your City'}
           </Link>
         </button>
-
-
-
-
       </div>
     </div>
   </section>
-
 )
 
 export default Home
