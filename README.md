@@ -37,7 +37,7 @@ You can view the app on GitHub pages [here](https://emmahobday.github.io/project
 
 Our vision was to create a beautiful app that would display weather information for cities around the world. We selected DarkSky API because the data it provided was so detailed - using it, we could display forecast infomation for the next minute, hour, or day. We used Bulma to style our app.
 
-###Router
+### Router
 
 We used `<BrowserRouter>` to create the routing.
 
@@ -58,7 +58,7 @@ const App = () => {
 
 Our site has three main components: a homepage, a 'cities' page where you can select your city, and a 'single city' page which displays information for the selected city.
 
-###Homepage
+### Homepage
 
 Our homepage is simple yet striking, using a full height Bulma Hero banner, with a link to our 'cities' page. We selected a free sunset image to make our page eye-catching and inviting.
 
@@ -124,7 +124,7 @@ We laid out the page using a medium-height hero banner, using the same backgroun
 ![Cities Page](src/img/screenshots/Cities-2.png)
 
 
-###Single City 
+### Single City 
 Our 'single city' page uses another classical component. We used the life cycle method componentDidMount to fetch the data from DarkSky using Axios when the page loads. DarkSky requires the latitude and longitude of a city to make the request, which we had hard-coded into our state on the Cities page. This data is passed through as props when the city is selected, and set as a variable when the page loads:
 
 `const data = this.props.location.state`
