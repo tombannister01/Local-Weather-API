@@ -1,18 +1,17 @@
-# project-2
-### General Assembly, Software Engineering Immersive
-### Tom Bannister and Emma Hobday
+### ![GA Logo](https://cloud.githubusercontent.com/assets/40461/8183776/469f976e-1432-11e5-8199-6ac91363302b.png) General Assembly, Software Engineering Immersive
 
-## Weather API
+# project-2
+# Weather API
+
+by [Emma Hobday](https://github.com/emmahobday) and [Tom Bannister](https://github.com/tombannister01)
+
+
 
 ## Overview
 
-This was a two-day paired project as part of the Software Engineering Immersive course at General Assembly London. 
+This was a two-day paired project as part of the Software Engineering Immersive course at General Assembly London. The assignment was to build a React application that consumes a public API.
 
-The assignment was to build a React application that consumes a public API.
-
-We chose to create a weather forecasting app, using DarkSky API. 
-
-You can view the app on GitHub pages [here](https://emmahobday.github.io/project-2/), and find the GitHub repo [here](https://github.com/emmahobday/project-2).
+We chose to create a weather forecasting app, using DarkSky API. You can view the app on GitHub pages [here](https://emmahobday.github.io/project-2/), and find the GitHub repo [here](https://github.com/emmahobday/project-2).
 
 ## Brief
 
