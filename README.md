@@ -216,6 +216,9 @@ Initially we had an issue where the 'ticking' time failed when the user selected
     clearInterval(this.state.intervalID)
   }
   `
+## Challenges
+
+Getting the local-time clock ticking was definitely the biggest challenge, as detailed above. I learned a lot about using documentation when using a new library, and when we eventually got it working, it felt like a great achievement!
 
 
 ## Successes
