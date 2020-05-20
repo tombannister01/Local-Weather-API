@@ -9,7 +9,7 @@ import Cities from './components/Cities'
 import SingleCity from './components/SingleCity'
 
 const App = () => {
-  return <BrowserRouter basename="/project-2">
+  return <BrowserRouter basename="/Local-Weather-API">
     <Switch>
       <Route exact path="/cities/:city" component={SingleCity} />
       <Route exact path="/cities" component={Cities} />
